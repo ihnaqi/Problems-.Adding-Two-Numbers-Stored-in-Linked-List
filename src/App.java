@@ -19,6 +19,10 @@ public class App {
             this.val = val;
             this.next = next;
         }
+
+        int getValue() {
+            return this.val;
+        }
     }
 
     private ListNode head;
@@ -44,13 +48,13 @@ public class App {
         ListNode head = null;
         int num = 0;
         if (l2 == null) {
-            head = new ListNode(l1.val);
+            head = new ListNode(l1.getValue());
             l1 = l1.next;
         } else if (l1 == null) {
-            head = new ListNode(l2.val);
+            head = new ListNode(l2.getValue());
             l2 = l2.next;
         } else {
-            num = l1.val + l2.val;
+            num = l1.getValue() + l2.getValue();
 
             head = num > 9 ? new ListNode(num % 10) : new ListNode(num);
             num = num / 10;
@@ -60,19 +64,21 @@ public class App {
         ListNode curr = head;
         while (l1 != null || l2 != null) {
             if (l1 == null) {
-                curr.next = num + l2.val < 10 ? new ListNode(l2.val + num) : new ListNode((l2.val + num) % 10);
-                num = (l2.val + num) / 10;
+                curr.next = num + l2.getValue() < 10 ? new ListNode(l2.getValue() + num)
+                        : new ListNode((l2.getValue() + num) % 10);
+                num = (l2.getValue() + num) / 10;
                 curr = curr.next;
                 l2 = l2.next;
             } else if (l2 == null) {
-                curr.next = (num + l1.val) < 10 ? new ListNode(l1.val + num) : new ListNode((l1.val + num) % 10);
-                num = (l1.val + num) / 10;
+                curr.next = (num + l1.getValue()) < 10 ? new ListNode(l1.getValue() + num)
+                        : new ListNode((l1.getValue() + num) % 10);
+                num = (l1.getValue() + num) / 10;
                 curr = curr.next;
                 l1 = l1.next;
             } else {
 
                 // num = num > 0 ? (num + l1.val + l2.val) : (l2.val + l1.val);
-                num = num + l1.val + l2.val;
+                num = num + l1.getValue() + l2.getValue();
                 if (num > 9) {
                     curr.next = new ListNode(num % 10);
                     num = num / 10;
