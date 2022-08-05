@@ -103,6 +103,56 @@ public class App {
         return this.head;
     }
 
+    public ListNode mergeSortedList(ListNode l1, ListNode l2) {
+
+        ListNode head = new ListNode();
+
+        if (l1 != null && l2 != null) {
+            if (l1.val < l2.val) {
+                head.val = l1.val;
+                l1 = l1.next;
+            } else {
+                head.val = l2.val;
+                l2 = l2.next;
+            }
+        } else if (l2 == null && l1 != null) {
+            head.val = l1.val;
+            l1 = l1.next;
+        } else if (l1 == null && l2 != null) {
+            head.val = l2.val;
+            l2 = l2.next;
+        } else {
+            return null;
+        }
+
+        ListNode current = head;
+
+        while (l1 != null || l2 != null) {
+
+            if (l1 == null) {
+                current.next = new ListNode(l2.val);
+                l2 = l2.next;
+                current = current.next;
+            } else if (l2 == null) {
+                current.next = new ListNode(l1.val);
+                l1 = l1.next;
+                current = current.next;
+            } else {
+                if (l1.val < l2.val) {
+                    current.next = new ListNode(l1.val);
+                    l1 = l1.next;
+                    current = current.next;
+                } else {
+                    current.next = new ListNode(l2.val);
+                    l2 = l2.next;
+                    current = current.next;
+                }
+            }
+        }
+
+        return head;
+    }
+
     @Test
     public void test00() {
         App app = new App();
@@ -188,5 +238,10 @@ public class App {
         } while (curr1 != null && curr2 != null);
 
         assertTrue(same);
+    }
+
+    @Test
+    public void test03() {
+
     }
 }
